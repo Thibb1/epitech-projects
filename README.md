@@ -6,10 +6,16 @@
 [![Size](https://img.shields.io/github/languages/code-size/Thibb1/epitech-projects)](https://github.com/thibb1/epitech-projects/)
 [![GitHub issues](https://img.shields.io/github/issues/Thibb1/epitech-projects)](https://github.com/thibb1/epitech-projects/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![Stars](https://badgen.net/github/stars/thibb1/epitech-projects?icon=github)](https://github.com/Thibb1/epitech-projects/stargazers)
 
 ---
 
-<p align="center">EPITECH first year projects.<br></p>
+<p align="center">
+  EPITECH first year projects.<br>
+  <strong>
+    If you are seeing this repository, please just star it ⭐<br>
+  </strong>
+</p>
 
 ## 📝 Table of Contents
 
