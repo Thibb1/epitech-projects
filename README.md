@@ -43,3 +43,4 @@ This repo include EPITECH first year projects
 ## 📚 Projects <a name="project"></a>
 
 - [CPool ✔](CPool)
+- [FirTree 🌲](FirTree)
