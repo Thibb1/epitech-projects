@@ -1,0 +1,12 @@
+... Map info ...
+n nb of props
+... Props ...
+x coords
+y coords
+i type of prop
+... Types ...
+1 enemies
+2 obstacle
+
+Map.txt
+2(nb) 1059(x) 800(y) 1(i) 1059(x) 800(y) 2(i)
