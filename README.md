@@ -38,6 +38,14 @@ This repo include EPITECH first year projects
   <img height="20" src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/c/c.png">
 </a>
 
+<a href = "https://github.com/tuvtran/project-based-learning#cc">
+  <img height="20" src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/cpp/cpp.png">
+</a>
+
+<a href = "https://github.com/tuvtran/project-based-learning#haskell">
+  <img height="20" src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/haskell/haskell.png">
+</a>
+
 <a href = "https://www.python.org/">
   <img height="20" src="https://cdn.jsdelivr.net/npm/programming-languages-logos/src/python/python.png">
 </a>
@@ -49,5 +57,8 @@ This repo include EPITECH first year projects
 ## 📚 Projects <a name="project"></a>
 
 - [CPool ✔](CPool)
-- [FirTree 🌲](FirTree)
-- [Match Nmatch ✔](Nmatch)
+- [Haskell-Pool ✔](Haskell-Pool/README.md) (functional programming) 100%
+- [FirTree 🌲](FirTree) 100%
+- [CPE ✔](CPE/README.md)
+- [PSU ✔](PSU/README.md) myls myprintf navy
+- [CPE ✔](CPE/README.md)
