@@ -57,8 +57,8 @@ This repo include EPITECH first year projects
 ## 📚 Projects <a name="project"></a>
 
 - [CPool ✔](CPool)
-- [Haskell-Pool ✔](Haskell-Pool/README.md) (functional programming) 100%
+- [Haskell-Pool ✔](Haskell-Pool) (functional programming) 100%
 - [FirTree 🌲](FirTree) 100%
-- [CPE ✔](CPE/README.md)
-- [PSU ✔](PSU/README.md) myls myprintf navy
-- [CPE ✔](CPE/README.md)
+- [CPE ✔](CPE)
+- [PSU ✔](PSU) myls myprintf navy
+- [CPE ✔](CPE)
