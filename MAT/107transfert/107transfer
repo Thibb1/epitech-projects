@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import math
+import numpy as np
+import sys
+import os
+
+
+def check_errors(ac):
+    for x in range(1, ac):
+        if (sys.argv[x] == "-h"):
+            print("USAGE\n\t%s [num den]*\n\nDESCRIPTION\n\tnum\tpolynomial numerator defined by its coefficients\n\tden\tpolynomial denominator defined by its coefficients\n" %sys.argv[0])
+            exit (0)
+    if ((ac % 2) - 1 != 0 or ac < 2):
+        print("%s: %d argument(s) given but an argument is missing.\nTry %s -h" %(sys.argv[0], ac - 1, sys.argv[0]))
+        exit (84)
+
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def split_to_dic(string):
+    d = {}
+    for x in range (0, len(string)):
+        if not is_int(string[x]):
+            print("%s: %s arg is not int.\nTry %s -h" %(sys.argv[0], string[x], sys.argv[0]))
+            exit(84)
+        d[x] = int(string[x])
+    return (d)
+
+def fraction_calc(n, f, i):
+    a = 0
+    for x in range(n):
+        a += f[x]*i**x
+    return (a)
+
+def main(ac):
+    check_errors(ac)
+    for i in np.arange(0, 1.001, 0.001):
+        res = 1
+        a = 1
+        while (a < ac - 1):
+            num = split_to_dic(sys.argv[a].split('*'))
+            den = split_to_dic(sys.argv[a + 1].split('*'))
+            num_frac = fraction_calc(len(sys.argv[a].split('*')), num, i)
+            den_frac = fraction_calc(len(sys.argv[a + 1].split('*')), den, i)
+            if (num_frac == 0):
+                res *= 0
+            elif (den_frac == 0.000000):
+                print(den_frac)
+                print("%s: can't divide by zero.\nTry %s -h" %(sys.argv[0], sys.argv[0]))
+                exit(84)
+            else:
+                res *= (num_frac / den_frac)
+            a = a + 2
+        print("%.3f -> %.5f" %(i, res))
+
+if __name__ == "__main__":
+    main(len(sys.argv))

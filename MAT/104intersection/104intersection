@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+
+import math
+import sys
+import os
+
+def discriminant(a, b, c):
+    return b**2 - 4 * a * c
+
+def nb_solutions(a, b, c):
+    if (a == 0):
+        return -1
+    d = discriminant(a, b, c)
+    if (d < 0):
+        return 0
+    if (d == 0):
+        return 1
+    return 2
+
+def solutions(a, b, c):
+    d = nb_solutions(a, b, c)
+    if (d == 1):
+        return -b / (2 * a)
+    elif (d == 2):
+        return (-b + math.sqrt(discriminant(a, b, c))) / (2 * a), (-b - math.sqrt(discriminant(a, b, c))) / (2 * a)
+    elif (d == -1):
+        return "NaN"
+    else:
+        return
+
+def point_in_line(P, V, t):
+    return {"x": P["x"] + t*V["x"], "y": P["y"] + t*V["y"], "z": P["z"] + t*V["z"]}
+
+def intersection_sphere_quadratic(P, V, R):
+    a = V["x"]**2 + V["y"]**2 + V["z"]**2
+    b = 2 * (P["x"] * V["x"] + P["y"] * V["y"] + P["z"] * V["z"])
+    c = P["x"]**2 + P["y"]**2 + P["z"]**2 - R**2
+    return a, b, c
+
+def intersection_cyl_quadratic(P, V, R):
+    a = V["x"]**2 + V["y"]**2
+    b = 2 * (P["x"] * V["x"] + P["y"] * V["y"])
+    c = P["x"]**2 + P["y"]**2 - R**2
+    return a, b, c
+
+def intersection_cone_quadratic(P, V, d):
+    a = V["x"]**2 + V["y"]**2 - ((V["z"]**2) * math.tan(d)**2)
+    b = 2 * (P["x"] * V["x"] + P["y"] * V["y"]) - ((2 * P["z"] * V["z"]) * math.tan(d)**2)
+    c = P["x"]**2 + P["y"]**2 - ((P["z"]**2)* math.tan(d)**2)
+    return a, b, c
+
+def check(a, P, V):
+    if a is None:
+        print("No intersection point.")
+    elif isinstance(a, tuple):
+        p = point_in_line(P, V, a[0]), point_in_line(P, V, a[1])
+        print("2 intersection points:\n(%.3f, %.3f, %.3f)\n(%.3f, %.3f, %.3f)" %(p[0]["x"], p[0]["y"], p[0]["z"], p[1]["x"], p[1]["y"], p[1]["z"]))
+    elif a == "NaN":
+        print("There is an infinite number of intersection points.")
+    else:
+        p = point_in_line(P, V, a)
+        print("1 intersection point:\n(%.3f, %.3f, %.3f)" %(p["x"], p["y"], p["z"]))
+
+def cyl_check(P, V, R):
+    print("Cylinder of radius %d" %R)
+    print("Line passing through the point (%d, %d, %d) and parallel to the vector (%d, %d, %d)" %(P["x"],  P["y"], P["z"], V["x"], V["y"], V["z"]))
+    a, b, c = intersection_cyl_quadratic(P, V, R)
+    x = solutions(a, b, c)
+    check(x, P, V)
+
+def sphere_check(P, V, R):
+    print("Sphere of radius %d" %R)
+    print("Line passing through the point (%d, %d, %d) and parallel to the vector (%d, %d, %d)" %(P["x"],  P["y"], P["z"], V["x"], V["y"], V["z"]))
+    a, b, c = intersection_sphere_quadratic(P, V, R)
+    x = solutions(a, b, c)
+    check(x, P, V)
+
+def cone_check(P, V, D):
+    print("Cone with a %d degree angle" %D)
+    print("Line passing through the point (%d, %d, %d) and parallel to the vector (%d, %d, %d)" %(P["x"],  P["y"], P["z"], V["x"], V["y"], V["z"]))
+    a, b, c = intersection_cone_quadratic(P, V, math.radians(D))
+    x = solutions(a, b, c)
+    check(x, P, V)
+
+def is_int(a):
+    try:
+        int(a)
+        return 0
+    except ValueError:
+        return 84
+
+for x in range(1, len(sys.argv)):
+    if (sys.argv[x] == "-h"):
+        print("USAGE\n\t%s opt xp yp zp xv yv zv p\n\nDESCRIPTION\n\topt\t\tsurface option: 1 for a sphere, 2 for a cylinder, 3 for a cone\n\t(xp, yp, zp)\tcoordinates of a point by wich the light ray passes through\n\t(xv, yv, zv)\tcoordinates of a vector parallel to the light ray\n\tp\t\tparameter: radius of the sphere, radius of the cylinder, or\n\t\t\tangle formed by the cone and the Z-axis" %sys.argv[0])
+        exit (0)
+if (len(sys.argv) != 9):
+    print("%s: %d argument given but 8 awaited.\nTry %s -h" %(sys.argv[0], len(sys.argv) - 1, sys.argv[0]))
+    exit (84)
+for x in range(1, len(sys.argv)):
+    if (is_int(sys.argv[x])):
+        print("%s: only int allowed.\nTry %s -h" %(sys.argv[0], sys.argv[0]))
+        exit (84)
+if (int(sys.argv[8]) <= 0):
+    print("%s: bad radius / angle.\nTry %s -h" %(sys.argv[0], sys.argv[0]))
+    exit (84)
+if (sys.argv[1] == 3 and sys.argv[8] > 180 and sys.argv[8] < -180):
+    print("%s: wrong angle degree.\nTry %s -h" %(sys.argv[0], sys.argv[0]))
+    exit (84)
+if (sys.argv[5] == 0 and sys.argv[6] == 0 and sys.argv[7] == 0 and sys.argv[8] == 0):
+    print("%s: null vector direction.\nTry %s -h" %(sys.argv[0], sys.argv[0]))
+    exit (84)
+
+P = {"x": int(sys.argv[2]), "y": int(sys.argv[3]),"z": int(sys.argv[4])}
+V = {"x": int(sys.argv[5]), "y": int(sys.argv[6]),"z": int(sys.argv[7])}
+R = int(sys.argv[8])
+mode = int(sys.argv[1])
+if (mode == 1):
+    sphere_check(P, V, R)
+elif (mode == 2):
+    cyl_check(P, V, R)
+elif (mode == 3):
+    cone_check(P, V, R)
+else:
+    print("%s: wrong mode.\nTry %s -h" %(sys.argv[0], sys.argv[0]))
+    exit (84)

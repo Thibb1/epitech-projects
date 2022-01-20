@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Scalar::Util qw(looks_like_number);
+use Math::Trig;
+my $ac = $#ARGV + 1;
+my $usage = "USAGE\n\t$0 x0 y0 z0 x1 y1 z1 n\n\nDESCRIPTION\n\tx0 ball abscissa at time t - 1\n\ty0 ball ordinate at time t - 1\n\tz0 ball altitude at time t - 1\n\tx1 ball abscissa at time t\n\ty1 ball ordinate at time t\n\tz1 ball altitude at time t\n\tn time shift (greater than or equal to zero, integer)\n";
+sub arsum {my $sum; foreach (@_) {$sum += $_;} return $sum;}
+(do print "$usage"), (do exit 0) if (grep(/^\-h$/g, @ARGV));
+exit 84 if ($ac != 7);
+foreach my $a(@ARGV) {exit 84 if (!looks_like_number($a));}
+exit 84 if ($ARGV[6] < 0 or !($ARGV[6] =~ /^(\-|\+)?\d+?$/));
+my @b = @ARGV[3..5];
+my ($a, $t) = @ARGV[5..6];
+my @v = map {$b[$_] - $ARGV[$_]} 0..$#b;
+@b = map {$b[$_] + $t * $v[$_]} 0..$#b ;# while $t-- > 0;
+sub angle {
+    exit 84 unless (sqrt(arsum(map {$v[$_] * $v[$_]} 0..2)));
+    return abs((acos($v[2] / sqrt(arsum(map {$v[$_] * $v[$_]} 0..2))) - pi()/2) * 180 / pi());
+}
+printf("The velocity vector of the ball is:\n(%.2f, %.2f, %.2f)\nAt time t + $ARGV[6], ball coordinates will be:\n(%.2f, %.2f, %.2f)\n", @v, @b);
+if ($b[2] > 0 and $a < 0 and $v[2] != 0 or $b[2] < 0 and $a > 0 and $v[2] != 0)
+    {printf("The incidence angle is:\n%.2f degrees\n", angle());
+ } else {printf("The ball won't reach the paddle.\n");}

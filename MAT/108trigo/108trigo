@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+import math
+import sys
+import matrix as M
+import advanced_matrix as AM
+
+def print_help(prog):
+    print("USAGE\n"
+    "\t%s fun a0 a1 a2 ...\n\n"
+    "DESCRIPTION\n"
+    '\tfun\tfunction to be applied, among at least "EXP", "COS", "SIN", "COSH"\n'
+    '\t\tand "SINH"\n'
+    "\tai\tcoeficients of the matrix" %prog)
+    sys.exit(0)
+
+def is_number(x):
+    try:
+        float(x)
+        return True
+    except ValueError:
+        return False
+
+def is_integer(x):
+    if isinstance(x, int):
+        return True
+    if isinstance(x, float):
+        return x.is_integer()
+    return False
+
+def check_error(ac, av, n):
+    for x in range(1, ac):
+        if av[x] == "-h" or av[x] == "--help":
+            print_help(av[0])
+    if not is_integer(n):
+        print("%s: error. Try %s -h" %(av[0], av[0]))
+        return -1
+    if n < 2:
+        print("%s: not enough ai. Try %s -h" %(av[0], av[0]))
+        return -1
+    for x in range(2, ac):
+        if not is_number(av[x]):
+            print("%s: %s is not a number. Try %s -h" %(av[0], av[x], av[0]))
+            return -1
+
+def process_matrix(prog, mode, M1, n):
+    if mode == "EXP":
+        return AM.exp(M1, 100, n)
+    elif mode == "COS":
+        return AM.cos(M1, 100, n)
+    elif mode == "SIN":
+        return AM.sin(M1, 100, n)
+    elif mode == "COSH":
+        return AM.cosh(M1, 100, n)
+    elif mode == "SINH":
+        return AM.sinh(M1, 100, n)
+    else:
+        print("%s: wrong function. Try %s -h" %(prog, prog))
+        sys.exit(84)
+
+def main(ac, av):
+    if (ac < 2):
+        print("%s: not enough args. Try %s -h" %(av[0], av[0]))
+        sys.exit(84)
+    n = math.sqrt(ac - 2)
+    if (check_error(ac, av, n)):
+        sys.exit(84)
+    n = int(n)
+    M1 = []
+    for y in range(n):
+        M1.append([])
+        for x in range(n):
+            M1[y].append(int(av[y * n + x + 2]))
+    M.show(process_matrix(av[0], av[1], M1, n))
+
+if __name__ == "__main__":
+    main(len(sys.argv), sys.argv)

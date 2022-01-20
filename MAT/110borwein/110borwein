@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Scalar::Util qw(looks_like_number);
+use Math::Trig;
+my $ac = $#ARGV + 1;
+my $usage = "USAGE\n\t$0 n\n\nDESCRIPTION\n\tn   constant defining the integral to be computed\n";
+(do print "$usage"), (do exit 0) if (grep(/^\-h$/g, @ARGV));
+exit 84 if ($ac != 1);
+foreach my $a(@ARGV) {exit 84 if (!looks_like_number($a));}
+exit 84 if ($ARGV[0] < 0 or !($ARGV[0] =~ /^(\-|\+)?\d+?$/));
+
+my $n = $ARGV[0];
+my $h = 5000.0 / 10000.0;
+my $res = 0.0;
+
+sub calcul {
+    my $x = $_[0];
+    my $k = 0.0;
+    my $ret = 1;
+    for (my $k = 0; $k <= $n; $k++) {$ret *= sin($x / ((2 * $k) + 1)) / ($x / ((2 * $k) + 1)) if $x != 0;}
+    return ($ret);
+}
+
+for (my $count = 1; $count < 10000; $count++) {$res += calcul($count * $h);}
+
+sub midpoint {
+    my $mid = 0;
+    my $a = 0;
+    for (my $b = 0.5; $b <= 5000; $b += 0.5, $a += 0.5) {
+        $mid += calcul(($a + $b) / 2) * ($b - $a);
+    }
+    my $diff_mid = abs((pi() / 2) - $mid);
+    printf("Midpoint:\nI%d = %.10f\ndiff = %.10f\n\n", $n, $mid, $diff_mid);
+}
+
+sub trapezoidal {
+    my $I_trap = 0.25 * (calcul(0) + calcul(5000) + 2 * $res);
+    my $diff_trap = abs((pi() / 2) - $I_trap);
+    printf("Trapezoidal:\nI%d = %.10f\ndiff = %.10f\n\n", $n, $I_trap, $diff_trap);
+}
+sub simpson {
+    my $res2 = 0.0;
+    for (my $count = 0; $count < 10000; $count++) {$res2 += calcul($count * $h + $h * 0.5);}
+    my $simp = 5000.0 / 60000.0 * (calcul(0) + calcul(5000) + 2 * $res + 4 * $res2);
+    my $diff_simp = abs((pi() / 2) - $simp);
+    printf("Simpson:\nI%d = %.10f\ndiff = %.10f\n", $n, $simp, $diff_simp);
+}
+
+midpoint();
+trapezoidal();
+simpson();

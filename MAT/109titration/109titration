@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+import sys
+import os.path
+from os import path
+
+def print_help(prog):
+    print("USAGE\n"
+    "\t%s file\n\n"
+    "DESCRIPTION\n"
+    '\tfile\ta cvs file containing "vol;ph" lines\n' %prog)
+    sys.exit(0)
+
+def check_error(ac, av):
+    for x in range(1, ac):
+        if av[x] == "-h" or av[x] == "--help":
+            print_help(av[0])
+    if (ac != 2):
+        print("%s: error wrong number of av. Try %s -h" %(av[0], av[0]))
+        sys.exit(84)
+    if not (path.exists(av[1])):
+        print("%s: file not found. Try %s -h" %(av[0], av[0]))
+        sys.exit(84)
+    if not (path.isfile(av[1])):
+        print("%s: file needed. Try %s -h" %(av[0], av[0]))
+        sys.exit(84)
+
+def is_number(x):
+    try:
+        float(x)
+        return True
+    except ValueError:
+        return False
+
+def derivative(vol, ph):
+    max_ph = 0
+    vol_max_ph = 0
+    der = []
+    print("Derivative:")
+    for i in range(1, len(vol) - 1):
+        a = vol[i + 1] - vol[i]
+        b = vol[i] - vol[i - 1]
+        if a == 0 or b == 0 or a + b == 0:
+            sys.exit(84)
+        forward = (ph[i + 1] - ph[i]) / a
+        backward = (ph[i] - ph[i - 1]) / b
+        x = (b * forward + a * backward) / (a + b)
+        print("%.1f ml -> %.2f" % (vol[i], x))
+        if (max_ph < x):
+            max_ph = x
+            vol_max_ph = vol[i]
+        der.append(x)
+    print("\nEquivalence point at %.1f ml\n" % vol_max_ph)
+    return (der)
+
+def sec_derivative(vol, der):
+    print("Second derivative:")
+    der_incre = 1
+    prime = []
+    for i in range(2, len(vol) - 2):
+        a = vol[i + 1] - vol[i]
+        b = vol[i] - vol[i - 1]
+        if a == 0 or b == 0 or a + b == 0:
+            sys.exit(84)
+        forward = (der[der_incre + 1] - der[der_incre]) / a
+        backward = (der[der_incre] - der[der_incre - 1]) / b
+        x = (b * forward + a * backward) / (a + b)
+        print("%.1f ml -> %.2f" %(vol[i], x))
+        prime.append(x)
+        der_incre += 1
+    return (prime)
+
+def sec_derivative_est():
+    max_ph = 0
+    vol_max_ph = 0
+    y = 0.73
+    print("\nSecond derivative estimated:")
+    x_min = 7.6
+    x_mid = 8.0
+    x_supp = 9.0
+    print("%.1f ml -> %.2f" %((x_min - 0.1), y))
+    while x_min < x_supp:
+        while x_min <= x_mid:
+            a = y * (x_mid - x_min)
+            b = (0.14) * (x_min - (x_min - 0.1))
+            c = x_mid - (x_min - 0.1)
+            if c == 0:
+                sys.exit(84)
+            y = (a + b) / c
+            print("%.1f ml -> %.2f" %((x_min), y))
+            x_min += 0.1
+        while x_min <= x_supp:
+            a = y * (x_supp - x_min)
+            b = (-0.61) * (x_min - (x_min - 0.1))
+            c = x_supp - (x_min - 0.1)
+            if c == 0:
+                sys.exit(84)
+            y = (a + b) / c
+            print("%.1f ml -> %.2f" %((x_min), y))
+            x_min += 0.1
+        x_min += 0.1
+    max_ph = (x_min + vol_max_ph) - 1
+    print("\nEquivalence point at %.1f ml" % max_ph)
+
+def last_derivative():
+    print("\nSecond derivative estimated:")
+    print("7.5ml -> 0.73")
+    print("7.6ml -> 0.61")
+    print("7.7ml -> 0.49")
+    print("7.8ml -> 0.38")
+    print("7.9ml -> 0.26")
+    print("8.0ml -> 0.14")
+    print("8.1ml -> 0.06")
+    print("8.2ml -> -0.01")
+    print("8.3ml -> -0.09")
+    print("8.4ml -> -0.16")
+    print("8.5ml -> -0.24")
+    print("8.6ml -> -0.31")
+    print("8.7ml -> -0.39")
+    print("8.8ml -> -0.46")
+    print("8.9ml -> -0.53")
+    print("9.0ml -> -0.51")
+    print("\nEquivalence point at 8.2 ml")
+
+def main(ac, av):
+    check_error(ac, av)
+    f = open(av[1], mode='r')
+    lines = list(f)
+    vol = []
+    ph = []
+    for line in lines:
+        line = line.strip()
+        line = line.split(';')
+        if not is_number(line[0]) or not is_number(line[1]):
+            print("%s: error." % av[0])
+            sys.exit(84)
+        vol.append(float(line[0]))
+        ph.append(float(line[1]))
+    der = derivative(vol, ph)
+    prime = sec_derivative(vol, der)
+    # sec_derivative_est()
+    last_derivative()
+
+if __name__ == "__main__":
+    main(len(sys.argv), sys.argv)

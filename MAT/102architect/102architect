@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+######################################################
+# MODULES
+#
+#####################################################
+use strict;
+use warnings;
+use Scalar::Util qw(looks_like_number);
+use Math::Trig;
+#####################################################
+#
+# ERRORS
+#
+#####################################################
+my $ac = $#ARGV + 1;
+my $usage = "USAGE\n\t$0 x y transfo1 arg11 [arg12] [transfo2 arg12 [arg22]] ...\n\nDESCRIPTION\n\tx   abscissa of the original point\n\ty   ordinate of the original point\n\n\ttransfo arg1 [arg2]\n\t-t i j\ttranslation along vector (i, j)\n\t-z m n\tscaling by factors m (x-axis) and n (y-axis)\n\t-r d\trotation centered in 0 by a d degree angle\n\t-s d\treflection over the axis passing trough 0 with an inclination\n\t\tangle of d degrees\n";
+(do print "$usage"), (do exit 0) if (grep(/^\-h$/g, @ARGV));
+exit 84 if $ac < 4;
+#####################################################
+#
+# VARS
+#
+#####################################################
+my @v = (1, (0) x 3, 1, 0, $ARGV[0], $ARGV[1]);
+#####################################################
+#
+# UTILS
+#
+#####################################################
+sub matrix_multiply {
+    my @a = (@_[0..5]);
+    my @b = (@_[6..11]);
+    return($a[0] * $b[0] + $a[1] * $b[3],
+           $a[0] * $b[1] + $a[1] * $b[4],
+           $a[0] * $b[2] + $a[1] * $b[5] + $a[2],
+           $a[3] * $b[0] + $a[4] * $b[3],
+           $a[3] * $b[1] + $a[4] * $b[4],
+           $a[3] * $b[2] + $a[4] * $b[5] + $a[5])
+}
+sub rad_conv {
+    return ($_[0] * pi() / 180);
+}
+sub matrix_translate {
+    exit 84 if (!looks_like_number($_[-2]) || !looks_like_number($_[-1]));
+    printf("Translation along vector (%d, %d)\n", $_[-2], $_[-1]);
+    my @a = (0, 0, $_[-2], 0, 0, $_[-1]);
+    @a = map {$_[$_] + $a[$_]} 0..5;
+    return (@a, $_[6] + $_[-2], $_[7] + $_[-1]);
+}
+sub matrix_mult {
+    exit 84 if (!looks_like_number($_[-2]) || !looks_like_number($_[-1]));
+    printf("Scaling by factors %d and %d\n", $_[-2], $_[-1]);
+    my @a = ($_[-2], 0, 0, 0, $_[-1], 0);
+    @a = matrix_multiply(@a, @_[0..5]);
+    return (@a, $_[6] * $_[-2], $_[7] * $_[-1]);
+}
+sub matrix_rot {
+    exit 84 if (!looks_like_number($_[-1]));
+    printf("Rotation by a %d degree angle\n", $_[-1]);
+    my ($c, $s) = (cos(rad_conv($_[-1])), sin(rad_conv($_[-1])));
+    my @a = ($c, -$s, 0, $s, $c, 0);
+    @a = matrix_multiply(@a, @_[0..5]);
+    return (@a, $_[6] * $c - $_[7] * $s, $_[6] * $s + $_[7] * $c);
+}
+sub matrix_reflec {
+    exit 84 if (!looks_like_number($_[-1]));
+    printf("Reflection over an axis with an inclination angle of %d degrees\n", $_[-1]);
+    my ($c, $s) = (cos(2 * rad_conv($_[-1])), sin(2 * rad_conv($_[-1])));
+    my @a = ($c, $s, 0, $s, -$c, 0);
+    @a = matrix_multiply(@a, @_[0..5]);
+    return (@a, $_[6] * $c + $_[7] * $s, $_[6] * $s - $_[7] * $c);
+}
+#####################################################
+#
+# MAIN
+#
+#####################################################
+foreach my $i (0 .. $#ARGV) {
+    @v = matrix_translate(@v, @ARGV[$i+1 .. $i+2]) if (grep(/^\-t$/g, $ARGV[$i]));
+    @v = matrix_mult(@v, @ARGV[$i+1 .. $i+2]) if (grep(/^\-z$/g, $ARGV[$i]));
+    @v = matrix_rot(@v, $ARGV[$i+1]) if (grep(/^\-r$/g, $ARGV[$i]));
+    @v = matrix_reflec(@v, $ARGV[$i+1]) if (grep(/^\-s$/g, $ARGV[$i]));
+}
+foreach my $i (0 .. $#v) {$v[$i] = 0 if $v[$i] <= 0.0044 && $v[$i] >= -0.0044}
+printf("%.2f\t%.2f\t%.2f\n%.2f\t%.2f\t%.2f\n0.00\t0.00\t1.00\n(%.2f, %.2f) => (%.2f, %.2f)\n", @v[0..5], @ARGV[0..1], @v[6..7]);

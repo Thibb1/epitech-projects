@@ -1,0 +1,118 @@
+#!/usr/bin/perl
+######################################################
+# MODULES
+#
+#####################################################
+use strict;
+use warnings;
+use Data::Dumper;
+use diagnostics;
+use Scalar::Util qw(looks_like_number);
+use POSIX qw{ ceil };
+#####################################################
+#
+# ERRORS
+#
+#####################################################
+my $ac = $#ARGV + 1;
+my $usage = "USAGE\n\t$0 message key flag\n\nDESCRIPTION\n\tmessage\ta message, made of ASCII characters\n\tkey\tthe encryption key, made of ASCII characters\n\tflag\t0 for the message to be encrypted, 1 to be decrypted\n";
+(do print "$usage"), (do exit 0) if (grep(/^\-h$/g, @ARGV));
+exit 84 if $ac != 3 || !looks_like_number($ARGV[2]);
+#####################################################
+#
+# VARS
+#
+#####################################################
+my @data = map { ord } split //, $ARGV[0];
+@data = $ARGV[0] =~ /(\d+)/g if ($ARGV[2] == 1);
+my @key = map { ord } split //, $ARGV[1];
+my $col_nb = ceil(sqrt @key);
+exit (84) if (!@data or !@key);
+
+my $lenght = ($col_nb * ceil((@data) / $col_nb) - 1);
+push @data, (0) x ($lenght - @data + 1);
+push @key, (0) x ($col_nb * $col_nb - @key);
+my $row_nb = ($lenght + 1) / $col_nb;
+push my @coded, (0) x ($lenght);
+#####################################################
+#
+# UTILS
+#
+#####################################################
+sub matrix_mult {
+    for ( my $r = 0; $r < $row_nb; ++$r) { # from 0 to 19
+        for ( my $c = 0; $c < $col_nb; ++$c) { # from 0 to 2
+            $coded[$r * $col_nb + $c] += $data[$r * $col_nb + $_] * $key[$_ * $col_nb + $c] 
+            foreach 0 .. $col_nb - 1;
+        }
+    }
+}
+sub matrix_ident {
+    my($nb) = @_;
+    map { [ (0) x $_, 1, (0) x ($nb - 1 - $_) ] } 0 .. $nb - 1
+}
+sub matrix_div {
+    our @m; local *m = shift;
+    @m or return;
+    my ($head, $rowsize, $colsize) = (0, scalar(@m), scalar(@{$m[0]}));
+    foreach my $r (0 .. $rowsize - 1) {
+        $head < $colsize or return;
+        my $i = $r;
+        until ($m[$i][$head]) {
+            ++$i == $rowsize or next;
+            $i = $r;
+            ++$head == $colsize and return;
+    }
+    @m[$i, $r] = @m[$r, $i];
+    my $lv = $m[$r][$head];
+    $_ /= $lv foreach @{ $m[$r] };
+    my @mr = @{ $m[$r] };
+    foreach my $i (0 .. $rowsize - 1) {
+        $i == $r and next;
+        ($lv, my $n) = ($m[$i][$head], -1);
+        $_ -= $lv * $mr[++$n] foreach @{ $m[$i] };}
+        ++$head;
+    }
+}
+sub matrix_invert {
+    my @m;
+    for (0 .. $col_nb - 1) { push @m, [ @key[$_ * $col_nb .. ($_ + 1) * $col_nb - 1] ] };
+    my @ident = matrix_ident(scalar @m);
+    push @{$m[$_]}, @{$ident[$_]} for 0 .. $col_nb - 1;
+    matrix_div(\@m);
+    map { splice @$_, 0, $col_nb } @m;
+    for ( my $x = 0; $x < $col_nb; ++$x ) {
+        for ( my $y = 0; $y < $col_nb; ++$y) {
+            $key[$x * $col_nb + $y] = $m[$x][$y];
+        }
+    }
+}
+#####################################################
+#
+# MAIN
+#
+#####################################################
+print("Key matrix:\n");
+if ($ARGV[2] == 0) {
+    foreach my $i (0 .. $col_nb * $col_nb - 1) {
+        printf (($i % $col_nb == $col_nb - 1 ? "%.0f\n" : "%.0f\t"), $key[$i]);
+    }
+    print "\nEncrypted message:\n";
+    matrix_mult();
+    for (my $a = 0; $a <= $lenght; ++$a) {
+        printf(($a == 0 ? "%d" : " %d"), $coded[$a]);
+    }
+} elsif ($ARGV[2] == 1) {
+    matrix_invert();
+    foreach my $i (0 .. $col_nb * $col_nb - 1) {
+        printf (($i % $col_nb == $col_nb - 1 ? "%.3f\n" : "%.3f\t"), $key[$i]);
+    }
+    print "\nDecrypted message:\n";
+    matrix_mult();
+    for my $i (@coded) {
+        next if ($i < 31 or $i > 178);
+        $i = sprintf "%.0f", $i;
+        printf "%c", $i;
+    }
+}
+print "\n";
