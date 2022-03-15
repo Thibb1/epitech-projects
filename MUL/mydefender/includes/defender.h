@@ -4,43 +4,44 @@
 ** File description:
 ** includes for binary binary
 */
-#include <stdio.h>
+
 #ifndef DEFENDER
-#define DEFENDER
+    #define DEFENDER
+    #include <stdio.h>
 
-#define NB_LVL 1
+    #define NB_LVL 1
 
-#define NB_SCENE 3
+    #define NB_SCENE 3
 
-#define MENU 0
-#define LVL 1
-#define PAUSE 2
+    #define MENU 0
+    #define LVL 1
+    #define PAUSE 2
 
-#define START_GOLD 150
+    #define START_GOLD 150
 
-#define B_IDLE 0
-#define B_HOVER 1
-#define B_CLICKED 2
-#define B_DISABLE 3
+    #define B_IDLE 0
+    #define B_HOVER 1
+    #define B_CLICKED 2
+    #define B_DISABLE 3
 
-#define E_CIRCLE 1
-#define E_TRIANGLE 3
-#define E_SQUARE 4
-#define E_OCTAGON 8
+    #define E_CIRCLE 1
+    #define E_TRIANGLE 3
+    #define E_SQUARE 4
+    #define E_OCTAGON 8
 
-#define T_CIRCLE 1
-#define T_TRIANGLE 3
-#define T_SQUARE 4
-#define T_OCTAGON 8
+    #define T_CIRCLE 1
+    #define T_TRIANGLE 3
+    #define T_SQUARE 4
+    #define T_OCTAGON 8
 
-#define M_ABS(x) (((x) < 0) ? ((x) * -1) : (x))
+    #define M_ABS(x) (((x) < 0) ? ((x) * - 1) : (x))
 
-#include "my.h"
-#include <math.h>
-#include <SFML/Graphics.h>
-#include <SFML/Audio.h>
-#include <SFML/Window.h>
-#include <SFML/System.h>
+    #include "my.h"
+    #include <math.h>
+    #include <SFML/Graphics.h>
+    #include <SFML/Audio.h>
+    #include <SFML/Window.h>
+    #include <SFML/System.h>
 
 ////////////////////////////////////////////////////////////
 /// \brief text contains every attribute of a text box

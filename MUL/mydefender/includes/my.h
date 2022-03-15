@@ -6,38 +6,38 @@
 */
 
 #ifndef DEF_MAIN
-#define DEF_MAIN
+    #define DEF_MAIN
 
-
+//
 ////////////////////////////////////////////////////////////
 /// \brief Keyword to return 84 on failure.
 ///
 ////////////////////////////////////////////////////////////
-#define FAILURE 84
+    #define FAILURE 84
 
 
 ////////////////////////////////////////////////////////////
 /// \brief Keyword to return 0 on success.
 ///
 ////////////////////////////////////////////////////////////
-#define SUCCESS 0
+    #define SUCCESS 0
 
 
-#define ABS(x) ((x < 0) ? (x * -1L) : (x))
+    #define ABS(x) ((x < 0) ? (x * - 1L) : (x))
 
-#include <string.h>
-#include <time.h>
-#include <grp.h>
-#include <pwd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdarg.h>
+    #include <string.h>
+    #include <time.h>
+    #include <grp.h>
+    #include <pwd.h>
+    #include <sys/stat.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    #include <unistd.h>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <fcntl.h>
+    #include <signal.h>
+    #include <stdarg.h>
 
 ////////////////////////////////////////////////////////////
 /// \brief Return 84 and print an error message.
@@ -56,8 +56,8 @@ int my_printf(const char *str, ...);
 ////////////////////////////////////////////////////////////
 /// \brief Write formatted output to a file descriptor.
 ///
-/// \param  fd  file descriptor
-/// \param  str format
+/// \param fd file descriptor
+/// \param str format
 ///
 ////////////////////////////////////////////////////////////
 int my_dprintf(int fd, const char *str, ...);
@@ -82,7 +82,7 @@ void my_swap(int *a, int *b);
 
 
 ////////////////////////////////////////////////////////////
-/// \brief  Return the number of occurrences of a character
+/// \brief Return the number of occurrences of a character
 ///         in a string.
 ///
 /// \param str  String to check

@@ -82,8 +82,8 @@ void load_back_button(button_s *button)
     sfText_setFont(button->text, button->font);
     sfText_setString(button->text, "Back");
     rect = sfText_getLocalBounds(button->text);
-    sfText_setPosition(button->text, (sfVector2f)
-    {(1920 / 2) - (rect.width / 2), 680});
+    sfText_setPosition(button->text,
+        (sfVector2f){(1920 / 2) - (rect.width / 2), 680});
     sfText_setColor(button->text, sfWhite);
     sfText_setOutlineThickness(button->text, 3);
     sfText_setOutlineColor(button->text, (sfColor){30, 0, 180, 255});

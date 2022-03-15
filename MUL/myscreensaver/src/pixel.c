@@ -63,8 +63,8 @@ void my_circle(framebuffer_t *f, sfVector2i p, int r, sfColor color)
 {
     int x;
     for (int i = p.y - r; i <= p.y + r; i++)
-        for (int b = p.x - r; b <= p.x +r; b++) {
+        for (int b = p.x - r; b <= p.x + r; b++) {
             x = (b - p.x) * (b - p.x) + (i - p.y) * (i - p.y);
-            (x <= r*r) ? my_put_pixel(f, b, i, color) : 0;
+            (x <= r * r) ? my_put_pixel(f, b, i, color) : 0;
         }
 }

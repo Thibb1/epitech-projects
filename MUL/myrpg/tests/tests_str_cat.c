@@ -10,8 +10,8 @@
 Test(my_strncat, my_strncat_test)
 {
     char src[30] = "ab";
-    my_strncat(src, "acb", 2);
 
+    my_strncat(src, "acb", 2);
     cr_assert_str_eq("abac", src);
 }
 

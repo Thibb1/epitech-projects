@@ -6,18 +6,18 @@
 */
 
 #ifndef MY_RPG
-#define MY_RPG
+    #define MY_RPG
 
-#include <math.h>
-#include <SFML/Graphics.h>
-#include <SFML/Audio.h>
-#include <SFML/Window.h>
-#include <SFML/System.h>
-#include "my.h"
-#include "ui.h"
+    #include <math.h>
+    #include <SFML/Graphics.h>
+    #include <SFML/Audio.h>
+    #include <SFML/Window.h>
+    #include <SFML/System.h>
+    #include "my.h"
+    #include "ui.h"
 
-#define RAND(x, y) ((y) + rand() % ((x) - (y)))
-#define RAND_INT(x, y) ((x) > (y) ? RAND((x) + 1, y) : RAND((y) + 1, x))
+    #define RAND(x, y) ((y) + rand() % ((x) - (y)))
+    #define RAND_INT(x, y) ((x) > (y) ? RAND((x) + 1, y) : RAND((y) + 1, x))
 typedef struct tilemap_s {
     sfVertexArray *vertex;
     sfTexture *texture;
@@ -122,7 +122,7 @@ void game_ui_event(my_rpg *rpg, sfEvent event);
 void sound_menu_click(interface_s *ui);
 void check_state(interface_s *ui, sfRenderWindow *window);
 void check_soundmenu_state(sfVector2i cursor, s_menu *menu);
-void check_specific_button(sfVector2i cursor, button_s *but, sfFloatRect bounds);
+void check_specific_button(sfVector2i cursor, button_s *but, sfFloatRect b);
 
 void unload_window(render r);
 #endif

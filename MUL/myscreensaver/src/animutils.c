@@ -36,7 +36,7 @@ sfColor getcolor(mandel d)
 
 void pixel_it(framebuffer_t *f, mandel d)
 {
-    for (d.i = 0; d.i < d.mit && (d.z2.x + d.z2.y) < d.r*d.r; d.i++) {
+    for (d.i = 0; d.i < d.mit && (d.z2.x + d.z2.y) < d.r * d.r; d.i++) {
         d.z.y = 2 * d.z.x * d.z.y + d.c.y;
         d.z.x = d.z2.x - d.z2.y + d.c.x;
         d.z2.x = d.z.x * d.z.x;

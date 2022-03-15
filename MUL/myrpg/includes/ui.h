@@ -6,16 +6,16 @@
 */
 
 #ifndef UI
-#define UI
-#include "my_rpg.h"
+    #define UI
+    #include "my_rpg.h"
 
-#define UI_LIST 3
+    #define UI_LIST 3
 
-#define TEXT_ONLY 1
-#define DECORATED 2
+    #define TEXT_ONLY 1
+    #define DECORATED 2
 
-#define IDLE 3
-#define HOVER 4
+    #define IDLE 3
+    #define HOVER 4
 
 typedef struct clock_s {
     sfClock *clock;
@@ -24,7 +24,7 @@ typedef struct clock_s {
 } clock_s;
 
 ////////////////
-//  buttons
+// buttons
 ////////////////
 
 typedef struct decoration {

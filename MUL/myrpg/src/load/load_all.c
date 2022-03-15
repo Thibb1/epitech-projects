@@ -26,7 +26,7 @@ void load_player(player_s *player)
     sfSprite_setTextureRect(player->sprite, player->rect);
     sfSprite_setScale(player->sprite, (sfVector2f){3, 3});
     sfView_setCenter(player->view, player->pos);
-    sfView_setSize(player->view, (sfVector2f){1920/1.3, 1080/1.3});
+    sfView_setSize(player->view, (sfVector2f){1920 / 1.3, 1080 / 1.3});
 }
 
 void load_sfx(sfx_s *sfx)

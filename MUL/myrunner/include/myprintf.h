@@ -5,9 +5,9 @@
 ** myprintf
 */
 #ifndef BSPRINTF
-#define BSPRINTF
-#define MAX_ARGS 31
-#include <stdarg.h>
+    #define BSPRINTF
+    #define MAX_ARGS 31
+    #include <stdarg.h>
 typedef struct flag_s {
     char f;
     char spe;

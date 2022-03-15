@@ -75,7 +75,7 @@ void check_lvl(shop *sh)
     sfColor c = sh->but[0].color;
 
     c.a = 234;
-    for (int i = 0; i < 4;i++) {
+    for (int i = 0; i < 4; i++) {
         if (sh->but[i].state == B_CLICKED)
             sfRectangleShape_setFillColor(sh->but[i].rect, c);
         else

@@ -12,8 +12,8 @@ void color_tow(window *win, shop sh, tower *tow)
     sfColor c = sfGreen;
     sfVector2f pos = {tow->pos.x - (tow->range / 2) + 30,
         tow->pos.y - (tow->range / 2) + 30};
-    c.a = 224;
 
+    c.a = 224;
     if (tow->state == B_IDLE)
         sfCircleShape_setFillColor(tow->outshape, sfGreen);
     else {
@@ -53,7 +53,7 @@ void check_tower(assets *as)
     while (t != NULL) {
         while (e != NULL) {
             x = (t->pos.x + 25 - e->pos.x) * (t->pos.x + 25 - e->pos.x);
-            y = (t->pos.y + 25 - e->pos.y -5) * (t->pos.y + 25 - e->pos.y);
+            y = (t->pos.y + 25 - e->pos.y - 5) * (t->pos.y + 25 - e->pos.y);
             if ((t->range / 2) * (t->range / 2) - (x + y) >= 0) {
                 e->life -= log(t->type * t->level * 10) * 50;
                 pop_life(as, t, e);

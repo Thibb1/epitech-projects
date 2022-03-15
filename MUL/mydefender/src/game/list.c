@@ -10,7 +10,7 @@
 void set_enemy_data(enemy *cur, int type, sfColor c)
 {
     cur->phase = 1;
-    cur->life = (1 / (log(type) + 1)) * 1000 ;
+    cur->life = (1 / (log(type) + 1)) * 1000;
     cur->type = type;
     cur->pos = (sfVector2f) {-20, 80};
     cur->shape = sfCircleShape_create();

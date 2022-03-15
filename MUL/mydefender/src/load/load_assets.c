@@ -32,8 +32,8 @@ void load_menu_scene(assets *as, scene *sc)
 
     sc->nb_text = 3;
     sc->nb_but = 2;
-    sc->but = (button*) malloc(sc->nb_but * sizeof(button));
-    sc->text = (text*) malloc(sc->nb_text * sizeof(text));
+    sc->but = (button *) malloc(sc->nb_but * sizeof(button));
+    sc->text = (text *) malloc(sc->nb_text * sizeof(text));
     sc->sh = NULL;
     init_text(&sc->text[0], text_color, def, "My Defender");
     init_text(&sc->text[1], text_color, play_quit, "Play");

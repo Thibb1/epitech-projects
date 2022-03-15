@@ -17,8 +17,8 @@ void set_title(menu_ui *menu)
     sfText_setCharacterSize(menu->title, 200);
     sfText_setString(menu->title, "Pokemon");
     rect = sfText_getLocalBounds(menu->title);
-    sfText_setPosition(menu->title, (sfVector2f)
-    {(1920 / 2) - (rect.width / 2), 50});
+    sfText_setPosition(menu->title,
+        (sfVector2f) {(1920 / 2) - (rect.width / 2), 50});
     sfText_setColor(menu->title, (sfColor){230, 230, 0, 255});
     sfText_setOutlineThickness(menu->title, 10);
     sfText_setOutlineColor(menu->title, (sfColor){30, 0, 180, 255});

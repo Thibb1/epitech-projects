@@ -27,7 +27,7 @@ void draw_game_loop(my_rpg *rpg, sfRenderTexture *t, map_s *m)
     cam.x += 64;
     cam.x = cam.x < 752 ? 752 : cam.x;
     if (cam.x > (rpg->maps[3].size_x - 12) * 64)
-        cam.x =  (rpg->maps[3].size_x - 12) * 64;
+        cam.x = (rpg->maps[3].size_x - 12) * 64;
     cam.y = cam.y < 412 ? 412 : cam.y;
     if (cam.y > (rpg->maps[3].size_y - 6) * 64 - 32)
         cam.y = (rpg->maps[3].size_y - 6) * 64 - 32;

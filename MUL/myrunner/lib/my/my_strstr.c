@@ -18,7 +18,7 @@ char *my_strstr(char *str, char const *to_find)
     int j = 0;
     int n = 0;
 
-    for (;to_find[j] && str[i]; i++) {
+    for (; to_find[j] && str[i]; i++) {
         if (to_find[j] != str[i])
             j = 0;
         if (to_find[j] == str[i]) {

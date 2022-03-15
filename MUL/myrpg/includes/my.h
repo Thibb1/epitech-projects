@@ -6,29 +6,29 @@
 */
 
 #ifndef DEF_MAIN
-#define DEF_MAIN
+    #define DEF_MAIN
 
 /// @brief Keyword to return 84 on failure.
-#define FAILURE 84
+    #define FAILURE 84
 
 /// @brief Keyword to return 0 on success.
-#define SUCCESS 0
+    #define SUCCESS 0
 
-#define ABS(x) ((x) < 0 ? (x) * -1 : (x))
+    #define ABS(x) ((x) < 0 ? (x) * -1 : (x))
 
-#include <fcntl.h>
-#include <grp.h>
-#include <pwd.h>
-#include <signal.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
+    #include <fcntl.h>
+    #include <grp.h>
+    #include <pwd.h>
+    #include <signal.h>
+    #include <stdarg.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <sys/stat.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    #include <time.h>
+    #include <unistd.h>
 
 /// @brief Returns the square root of a number
 /// @param double number to square

@@ -23,7 +23,7 @@ int load_texture(objects *ob)
 static void scaling(objects *ob)
 {
     sfFloatRect sprite;
-    sfIntRect rect = {0, 0, 1920*2, 1080};
+    sfIntRect rect = {0, 0, 1920 * 2, 1080};
     sfVector2f sprite_scale;
 
     for (int i = 0; i < BG_NB; i++) {

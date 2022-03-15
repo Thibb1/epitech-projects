@@ -51,7 +51,7 @@ void set_move(enemy *current, float deltatime)
 
 void check_enemy_next(assets *as, enemy *cur, enemy *next)
 {
-    if (next->life <= 0)  {
+    if (next->life <= 0) {
         sfCircleShape_destroy(next->shape);
         sfRectangleShape_destroy(next->lifebar);
         cur->next = next->next;
@@ -84,7 +84,7 @@ void check_head(assets *as)
     if (as->head->pos.x >= 1180) {
         sfCircleShape_destroy(as->head->shape);
         sfRectangleShape_destroy(as->head->lifebar);
-        as->lives  -= 1;
+        as->lives -= 1;
         free(as->head);
         as->head = next;
         enemy_to_base(as);

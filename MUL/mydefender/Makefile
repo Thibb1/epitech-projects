@@ -27,7 +27,8 @@ valgrind:
 
 clean:
 	@make -s -C lib/my clean
-	@rm -f $(OBJ) *~ *# unit-tests *.gcno *.gcna *.gcda coverage.info *.c.gcda *.c.gcov vgcore*
+	@rm -f $(OBJ) *~ *# unit-tests
+	@rm -f *.gcno *.gcna *.gcda coverage.info *.c.gcda *.c.gcov vgcore*
 
 fclean: clean
 	@make -s -C lib/my fclean
