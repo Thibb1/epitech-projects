@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+from curses.ascii import isdigit
+from math import factorial, prod
+import sys
+import re
+
+def binomial(a, b):
+    return (factorial(a) / (factorial(b) * factorial(a - b))) * pow((1 / 6), b) * pow((5 / 6), (a - b))
+# a straight (5 dice of sequential value),
+
+def CalculateChances(dices, nb, target):
+    same = sum(x == int(nb) for x in dices)
+    chances = 1 if same >= target else sum(binomial(5 - same, x) for x in range(target - same, 6 - same))
+    return chances
+
+def pair(dices, nb):
+    chances = CalculateChances(dices, nb, 2) * 100
+    print(f"Chances to get a {nb} pair: {chances:.2f}%")
+
+def three(dices, nb):
+    chances = CalculateChances(dices, nb, 3) * 100
+    print(f"Chances to get a {nb} three-of-a-kind: {chances:.2f}%")
+
+def four(dices, nb):
+    chances = CalculateChances(dices, nb, 4) * 100
+    print(f"Chances to get a {nb} four-of-a-kind: {chances:.2f}%")
+
+def yams(dices, nb):
+    chances = CalculateChances(dices, nb, 5) * 100
+    print(f"Chances to get a {nb} yams: {chances:.2f}%")
+
+def full(dices, nb1, nb2):
+    same1 = sum(x == int(nb1) for x in dices)
+    same2 = sum(x == int(nb2) for x in dices)
+    same1 = 3 if same1 > 3 else same1
+    same2 = 2 if same2 > 2 else same2
+    chances = 100 if same1 == 3 and same2 == 2 else (prod(binomial(5 - same1 - same2, x) for x in range(5 - same1 - same2, 6 - same1 - same2)))
+    chances = 100 if chances > 0.1 else chances * 1000
+    print(f"Chances to get a {nb1} full of {nb2}: {chances:.2f}%")
+
+def straight(dices, nb):
+    dices = set(dices)
+    p = 6 - dices.issuperset({int(nb)})
+    chances = 100 if dices.issuperset({1,2,3,4,5}) or dices.issuperset({2,3,4,5,6}) else factorial(p - len(dices)) / pow(6, p - len(dices)) * 100
+    print(f"Chances to get a {nb} straight: {chances:.2f}%")
+
+def helper():
+    print("USAGE")
+    print("\t./201yams d1 d2 d3 d4 d5 c\n")
+    print("DESCRIPTION")
+    print("\td1\tvalue of the first die (0 if not thrown)")
+    print("\td2\tvalue of the second die (0 if not thrown)")
+    print("\td3\tvalue of the third die (0 if not thrown)")
+    print("\td4\tvalue of the fourth die (0 if not thrown)")
+    print("\td5\tvalue of the fifth die (0 if not thrown)")
+    print("\tc\texpected combination")
+
+def match(str, val):
+    pattern = re.compile(str)
+    return bool(pattern.match(val))
+
+def get_match(str, val):
+    pattern = re.compile(str)
+    return pattern.match(val)
+
+def main():
+    ac = len(sys.argv)
+    av = sys.argv
+    if (ac == 2 and av[1] == "-h"):
+        helper()
+        sys.exit(0)
+    if (ac != 7):
+        sys.exit(84)
+    if (sum(isdigit(x) for x in av[1:6]) != 5):
+        sys.exit(84)
+    c = av[6]
+    dices = [int(x) for x in av[1:6]]
+    if (match("^pair_[0-6]$", c)):
+        pair(dices, get_match("^pair_([0-6])$", c).group(1))
+    elif (match("^three_[0-6]$", c)):
+        three(dices, get_match("^three_([0-6])$", c).group(1))
+    elif (match("^four_[0-6]$", c)):
+        four(dices, get_match("^four_([0-6])$", c).group(1))
+    elif (match("^full_[0-6]_[0-6]$", c)):
+        m = get_match("^full_([0-6])_([0-6])$", c)
+        full(dices, m.group(1), m.group(2))
+    elif (match("^straight_[0-6]$", c)):
+        straight(dices, get_match("^straight_([0-6])$", c).group(1))
+    elif (match("^yams_[0-6]$", c)):
+        yams(dices, get_match("^yams_([0-6])$", c).group(1))
+    else:
+        sys.exit(84)
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as e:
+        print(e)
+        sys.exit(84)

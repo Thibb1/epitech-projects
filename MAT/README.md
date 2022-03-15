@@ -10,3 +10,5 @@
 - [108trigo ✔](108trigo) 86.1%
 - [109titration ✔](109titration) 65%
 - [110borwein ✔](110borwein) 0% >.< import didn't work
+- [201yams ✔](201yams) 64.3%
+- [202unsold ✔](202unsold) 100%

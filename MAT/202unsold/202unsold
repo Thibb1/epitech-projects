@@ -1,0 +1,182 @@
+#!/usr/bin/python3
+##
+## EPITECH PROJECT, 2022
+## MATH
+## File description:
+## 202unsold
+##
+
+import sys, math
+from math import *
+
+def check_error():
+    if len(sys.argv) == 2:
+        try:
+            opt = str(sys.argv[1])
+        except:
+            sys.exit(84)
+        if opt == "-h":
+            print("USAGE\n    ./202unsold a b\n")
+            print("DESCRIPTION")
+            print("    a       constant computed from past results")
+            print("    b       constant computed from past results")
+            sys.exit(0)
+        else:
+            print("Wrong argument ", file=sys.stderr)
+            sys.exit(84)
+    elif len(sys.argv) != 3:
+        sys.exit(84)
+
+
+    if (not sys.argv[1].isnumeric() or not sys.argv[2].isnumeric()):
+        print("Wrong argument ", file=sys.stderr)
+        sys.exit(84)
+    var1 = int(sys.argv[1])
+    var2 = int(sys.argv[2])
+    if (var1 <= 50 or var2 <= 50 ):
+        print("a and b being integers greater than 50", file=sys.stderr)
+        sys.exit(84)
+
+check_error()
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+
+result = [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]
+
+
+def funct(a, b):
+    y = 0
+    x = 10
+    for u in range(5):
+        i = 0
+        x = 10
+        y += 10
+        for i in range(5):
+            tab = ((a - x) * (b - y)) / ((5 * a - 150) * (5 * b - 150))
+            x += 10
+            result[u][i] = tab
+
+    return (result)
+
+Xlaw = [0, 0, 0, 0, 0]
+Ylaw = [0, 0, 0, 0, 0]
+
+def Xlaw_funct():
+    Tot = 0
+    v = 0
+    funct(a, b)
+    for i in range(0, 5):
+        Xlaw[i] = result[v][0] + result[v][1] + result[v][2] + result[v][3] + result[v][4]
+        v += 1
+    return (Xlaw)
+
+
+def Ylaw_funct():
+    Tot = 0
+    v = 0
+    funct(a, b)
+
+    for i in range(0, 5):
+        Ylaw[i] = result[0][v] + result[1][v] + result[2][v] + result[3][v] + result[4][v]
+        v += 1
+
+    return (Ylaw)
+
+def variance_X():
+    funct(a,b)
+    VarianceX = Xlaw_funct()
+    Vx10 = VarianceX[0] * pow(10, 2)
+    Vx20 = VarianceX[1] * pow(20, 2)
+    Vx30 = VarianceX[2] * pow(30, 2)
+    Vx40 = VarianceX[3] * pow(40, 2)
+    Vx50 = VarianceX[4] * pow(50, 2)
+    VarX = Vx10 + Vx20 + Vx30 + Vx40 + Vx50
+
+    return(VarX)
+
+
+def variance_Y():
+    funct(a,b)
+    VarianceY = Ylaw_funct()
+    Vy10 = VarianceY[0] * pow(10, 2)
+    Vy20 = VarianceY[1] * pow(20, 2)
+    Vy30 = VarianceY[2] * pow(30, 2)
+    Vy40 = VarianceY[3] * pow(40, 2)
+    Vy50 = VarianceY[4] * pow(50, 2)
+    VarY = Vy10 + Vy20 + Vy30 + Vy40 + Vy50
+
+    return(VarY)
+
+
+def value_X():
+    funct(a,b)
+    ValueX = Xlaw_funct()
+
+    Vx10 = ValueX[0]* 10
+    Vx20 = ValueX[1]* 20
+    Vx30 = ValueX[2]* 30
+    Vx40 = ValueX[3]* 40
+    Vx50 = ValueX[4]* 50
+    ValX = Vx10 + Vx20 + Vx30 + Vx40 + Vx50
+    return(ValX)
+
+def value_Y():
+    funct(a,b)
+    ValueY = Ylaw_funct()
+
+    Vy10 = ValueY[0]* 10
+    Vy20 = ValueY[1]* 20
+    Vy30 = ValueY[2]* 30
+    Vy40 = ValueY[3]* 40
+    Vy50 = ValueY[4]* 50
+    ValY = Vy10 + Vy20 + Vy30 + Vy40 + Vy50
+
+    return(ValY)
+
+
+def main():
+    check_error()
+    funct(a,b)
+    Xlaw_funct()
+    Ylaw_funct()
+    ValueX = value_Y()
+    ValueY = value_X()
+    VarX = variance_Y()
+    VarY = variance_X()
+    VarY = VarY - pow(ValueY, 2)
+    VarX = VarX - pow(ValueX, 2)
+    VarZ = VarX + VarY
+
+    Tot = ((Ylaw[0] + Ylaw[1] + Ylaw[2] + Ylaw[3] + Ylaw[4]) + (Xlaw[0] + Xlaw[1] + Xlaw[2] + Xlaw[3] + Xlaw[4])) / 2
+    Pz20 = result[0][0]
+    Pz30 = (result[1][0] + result[0][1])
+    Pz40 = (result[2][0] + result[1][1] + result[0][2])
+    Pz50 = (result[3][0] + result[2][1] + result[1][2] + result[0][3])
+    Pz60 = (result[4][0] + result[3][1] + result[2][2] + result[1][3] + result[0][4])
+    Pz70 = (result[4][1] + result[3][2] + result[2][3] + result[1][4])
+    Pz80 = (result[4][2] + result[3][3] + result[2][4])
+    Pz90 = (result[4][3] + result[3][4])
+    Pz100 = result[4][4]
+    ValueZ = ((Pz20 *20) + (Pz30 * 30) + (Pz40 * 40) + (Pz50 * 50) + (Pz60 * 60) + (Pz70 * 70) + (Pz80 * 80) + (Pz90 * 90) + (Pz100 * 100))
+    print("--------------------------------------------------------------------------------")
+    print("\tX=10\tX=20\tX=30\tX=40\tX=50\tY law")
+    print("Y=10\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], Xlaw[0]))
+    print("Y=20\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(result[1][0], result[1][1], result[1][2], result[1][3], result[1][4], Xlaw[1]))
+    print("Y=30\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(result[2][0], result[2][1], result[2][2], result[2][3], result[2][4], Xlaw[2]))
+    print("Y=40\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(result[3][0], result[3][1], result[3][2], result[3][3], result[3][4], Xlaw[3]))
+    print("Y=50\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(result[4][0], result[4][1], result[4][2], result[4][3], result[4][4], Xlaw[4]))
+    print("X law\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(Ylaw[0], Ylaw[1], Ylaw[2], Ylaw[3], Ylaw[4], Tot))
+    print("--------------------------------------------------------------------------------")
+    print("z\t20\t30\t40\t50\t60\t70\t80\t90\t100")
+    print("p(Z=z)\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}\t{:.3f}".format(Pz20, Pz30, Pz40, Pz50, Pz60, Pz70, Pz80, Pz90, Pz100))
+    print("--------------------------------------------------------------------------------")
+    print("expected value of X:\t{:.1f}".format(ValueX))
+    print("variance of X:\t\t{:.1f}".format(VarX))
+    print("expected value of Y:\t{:.1f}".format(ValueY))
+    print("variance of Y:\t\t{:.1f}".format(VarY))
+    print("expected value of Z:\t{:.1f}".format(ValueZ))
+    print("variance of Z:\t\t{:.1f}".format(VarZ))
+    print("--------------------------------------------------------------------------------")
+
+main()
