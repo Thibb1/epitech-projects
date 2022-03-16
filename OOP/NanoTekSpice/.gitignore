@@ -1,0 +1,10 @@
+*.out
+*cppMaker
+*.o
+*.txt
+.vscode
+!CMakeLists.txt
+build
+test.nts
+nanotekspice
+asset

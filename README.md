@@ -60,6 +60,7 @@ This repo include EPITECH first year projects
 - [Haskell-Pool ✔](Haskell-Pool) (functional programming) 100%
 - [FirTree 🌲](FirTree) 100%
 - [CPE ✔](CPE)
-- [PSU ✔](PSU) myls myprintf navy
+- [PSU ✔](PSU)
 - [CPE ✔](CPE)
-- [MAT ✔](MAT)
+- [MAT ✔](MAT) tek1 tek2
+- [OOP ✔](OOP)
