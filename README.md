@@ -57,10 +57,10 @@ This repo include EPITECH first year projects
 ## 📚 Projects <a name="project"></a>
 
 - [CPool ✔](CPool)
-- [Haskell-Pool ✔](Haskell-Pool) (functional programming) 100%
 - [FirTree 🌲](FirTree) 100%
 - [CPE ✔](CPE)
 - [PSU ✔](PSU)
 - [CPE ✔](CPE)
 - [MAT ✔](MAT) tek1 tek2
 - [OOP ✔](OOP)
+- [FUN ✔](FUN)
