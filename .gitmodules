@@ -19,3 +19,9 @@
 [submodule "tek2/B-FUN-400-compressor"]
 	path = tek2/B-FUN-400-compressor
 	url = git@github.com:Thibb1/B-FUN-400-compressor.git
+[submodule "tek2/B-OOP-400-tekspice"]
+	path = tek2/B-OOP-400-tekspice
+	url = git@github.com:Thibb1/B-OOP-400-tekspice.git
+[submodule "tek2/B-OOP-400-arcade"]
+	path = tek2/B-OOP-400-arcade
+	url = git@github.com:Thibb1/B-OOP-400-arcade.git

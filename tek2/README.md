@@ -6,6 +6,7 @@
 - [Concurrent Programming](#concurrent-programming)
 - [Year End Project](#year-end-project)
 - [Functional Programming](#functional-programming)
+- [Object-oriented Programming](#object-oriented-programming)
 
 
 # Network Programming
@@ -95,3 +96,24 @@ Projects:
 - [compressor](https://github.com/Thibb1/B-FUN-400-compressor): Image compressor
 - [Haskell Pool](B-FUN-400-pool): Introduction to functional programming
 - [Rush 1](B-FUN-400-rush1): Program able to check if a sequence of push_swap operations is valid
+
+# Object-oriented Programming
+
+CPP Projects to introduce the following concepts:
+
+- Object-oriented programming
+- Modularization and abstraction
+
+Acquired skills:
+
+- New programming paradigm
+- Dynamic libraries
+- Modularization
+- Generic programming
+
+Grade obtained: `A`
+
+Projects:
+
+- [tekspice](https://github.com/Thibb1/B-OOP-400-tekspice): Circuit simulation
+- [arcade](https://github.com/Thibb1/B-OOP-400-arcade): Cross-library gaming platform
