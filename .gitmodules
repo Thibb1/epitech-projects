@@ -7,3 +7,6 @@
 [submodule "tek2/B-NWP-400-myteams"]
 	path = tek2/B-NWP-400-myteams
 	url = git@github.com:Thibb1/B-NWP-400-myteams.git
+[submodule "tek2/B-CCP-400-theplazza"]
+	path = tek2/B-CCP-400-theplazza
+	url = git@github.com:EpitechPromo2025/B-CCP-400-LIL-4-1-theplazza-marine.poteau.git
