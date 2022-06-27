@@ -1,0 +1,13 @@
+<svg viewBox="0 0 250 25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+  <path id="path">
+    <animate attributeName="d" values="m0,20 h0;m0,20 h55;m0,20 h55; m0,20 h-10;m0,20 h0" dur="5s" repeatCount="indefinite"/>
+  </path>
+  <rect fill="#1B8798" x="0" y="2" width="1" height="20">
+    <animate attributeName="x" values="0 ; 60; 60; 0; 0" dur="5s" repeatCount="indefinite" />
+    <animate attributeName="width" calcMode="discrete" values="1; 0" dur="1s" repeatCount="indefinite" />
+  </rect>
+	<text font-size="26" font-family="Montserrat" fill="#1B8798">
+		<textPath xlink:href="#path">Tek2
+    </textPath>
+  </text>
+</svg>
