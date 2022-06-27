@@ -17,8 +17,8 @@ Grade obtained: `B`
 
 Projects:
 
-- [myftp](B-NWP-400-myftp): File Transfer Protocol Server
-- [myteams](B-NWP-400-myteams): A collaborative communication application
+- [myftp](https://github.com/Thibb1/B-NWP-400-myftp): File Transfer Protocol Server
+- [myteams](https://github.com/Thibb1/B-NWP-400-myteams): A collaborative communication application
 
 # Concurrent Programming
 
@@ -37,4 +37,4 @@ Grade obtained: `B`
 
 Projects:
 
-- []
+- [theplazza](https://github.com/Thibb1/B-CCP-400-theplazza): pizzeria simulation
