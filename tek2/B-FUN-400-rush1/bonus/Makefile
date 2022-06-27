@@ -5,19 +5,20 @@
 ## Makefile
 ##
 
-OUT	= wolfram
+SOURCE	=	./algo_sort.hs
+OUT		=	pushswap
+CC		=	ghc
+CFLAGS	+=	-W -Wall -O2
 
 all: $(OUT)
 
-$(OUT):
-	stack install --local-bin-path .
-	mv wolfram-exe wolfram
+$(OUT): $(OBJ)
+	$(CC) $(SOURCE) -o $(OUT) $(CFLAGS)
 
 clean:
-	stack clean
+	$(RM) *.o *.hi
 
 fclean: clean
 	$(RM) $(OUT)
-	stack purge
 
 re: fclean all
