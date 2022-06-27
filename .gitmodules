@@ -1,3 +1,9 @@
 [submodule "tek2/B-NWP-400-myftp"]
 	path = tek2/B-NWP-400-myftp
 	url = git@github.com:Thibb1/B-NWP-400-myftp.git
+[submodule "tek2/B-YEP-400-indiestudio"]
+	path = tek2/B-YEP-400-indiestudio
+	url = git@github.com:Thibb1/B-YEP-400-indiestudio.git
+[submodule "tek2/B-NWP-400-myteams"]
+	path = tek2/B-NWP-400-myteams
+	url = git@github.com:Thibb1/B-NWP-400-myteams.git
