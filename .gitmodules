@@ -10,3 +10,12 @@
 [submodule "tek2/B-CCP-400-theplazza"]
 	path = tek2/B-CCP-400-theplazza
 	url = git@github.com:Thibb1/B-CCP-400-theplazza.git
+[submodule "tek2/B-CCP-400-panoramix"]
+	path = tek2/B-CCP-400-panoramix
+	url = git@github.com:Thibb1/B-CCP-400-panoramix.git
+[submodule "tek2/B-FUN-400-wolfram"]
+	path = tek2/B-FUN-400-wolfram
+	url = git@github.com:Thibb1/B-FUN-400-wolfram.git
+[submodule "tek2/B-FUN-400-compressor"]
+	path = tek2/B-FUN-400-compressor
+	url = git@github.com:Thibb1/B-FUN-400-compressor.git
