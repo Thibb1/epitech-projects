@@ -25,3 +25,9 @@
 [submodule "tek2/B-OOP-400-arcade"]
 	path = tek2/B-OOP-400-arcade
 	url = git@github.com:Thibb1/B-OOP-400-arcade.git
+[submodule "tek2/B-PSU-400-nmobjdump"]
+	path = tek2/B-PSU-400-nmobjdump
+	url = git@github.com:Thibb1/B-PSU-400-nmobjdump.git
+[submodule "tek2/B-PSU-400-malloc"]
+	path = tek2/B-PSU-400-malloc
+	url = git@github.com:Thibb1/B-PSU-400-malloc.git
