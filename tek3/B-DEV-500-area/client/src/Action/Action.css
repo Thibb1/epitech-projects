@@ -1,0 +1,157 @@
+.twitter-icon {
+    color: #00acee;
+    width: 40px;
+    height: 40px;
+}
+
+.twitch-icon {
+    color: #6441a5;
+    width: 40px;
+    height: 40px;
+}
+
+.epitech-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.spotify-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+}
+
+.epitech-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.reddit-icon {
+    color: #FF5700;
+}
+
+.action-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.action-title {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 48px;
+    font-weight: bold;  
+}
+
+.action-icons {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    width: 30%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.action-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 75px;
+    border-radius: 50px;
+    border: 2px solid green;
+    background-color: white;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+    transform: scale(1.05);
+}
+
+.action-background:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+
+.action-boxes {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    column-gap: 2%;
+}
+
+.action-boxes .action-box {
+    display: flex;
+    overflow: hidden;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 20px;
+    width: 50%;
+    flex-grow: 1;
+    min-height: 15vh;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    padding: 20px;
+}
+
+.action-boxes .action-box.enabled {
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.action-boxes .action-box.enabled:hover {
+    border: 1px solid blue;
+    transform: scale(1.05);
+    transition: 0.3s ease;
+    background-color: white;
+}
+
+.action-boxes .action-box .option-box {
+    display: flex;
+    background-color: #2196f3;
+    overflow: hidden;
+    border-radius: 10px;
+    align-items: center;
+    font-size: large;
+    cursor: default;
+    border: 1px solid blue;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.068);
+}
+
+.action-boxes .action-box .action-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    font-size: large;
+}
+
+.action-boxes .action-box .action-info-name {
+    width: 80%;
+    height: 100%;
+}
+
+.action-boxes .action-box .option-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 2;
+}
+
+.action-boxes .action-box .option-name {
+    flex: 1;
+    padding: 0 20px;
+    text-align: center;
+    color: white;
+}
+
+.action-boxes .action-box .option-input {
+    flex: 4;
+    border:none;
+    outline: none;
+}

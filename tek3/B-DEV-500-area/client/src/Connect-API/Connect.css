@@ -1,0 +1,74 @@
+/* Page */
+
+.connect-page h1, h3 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.connect-page h1 {
+    font-size: 48px;
+    margin: 50px 0;
+}
+
+.connect-page h3 {
+    font-size: 32px;
+}
+
+.connect-page h6 {
+    text-align: center;
+}
+
+/* API buttons */
+
+.connect-page .api-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10% 5%;
+    flex: 1;
+}
+
+.connect-page .api-buttons .api-btn {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    width: 15%;
+    height: 6vh;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-align: center;
+    background-color: #8fa7c5;
+    text-decoration: none;
+    color: #404a58;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.connect-page .api-btn-connected {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    width: 15%;
+    height: 6vh;
+    border-radius: 10px;
+    border: none;
+    background-color: #6aa8f8;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1.05);
+}
+
+.connect-page .api-buttons .api-btn:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+
+.connect-page .api-btn-connected:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}

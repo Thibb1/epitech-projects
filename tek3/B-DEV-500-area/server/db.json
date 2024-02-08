@@ -1,0 +1,279 @@
+{
+  "services": [
+    {
+      "name": "epitech",
+      "desc": "Epitech intranet service that can be notified of schedules and units changes and modify the user's account",
+      "appKeys": "",
+      "actions": [
+        {
+          "name": "New mark",
+          "desc": "A new mark was added to user",
+          "options": "[]",
+          "method": "get",
+          "endpointUrl": "https://intra.epitech.eu/user/{email}/notes/?format=json",
+          "header": "Cookie:user_cookie",
+          "body": "",
+          "trigger": "dataChanged,notes.length&&codeIs,200",
+          "userKey": true
+        },
+        {
+          "name": "Acquired credits updated",
+          "desc": "The user's acquired credits amount changed",
+          "options": "[]",
+          "method": "get",
+          "endpointUrl": "https://intra.epitech.eu/user/?format=json",
+          "header": "Cookie:user_cookie",
+          "body": "",
+          "trigger": "dataChanged,credits&&codeIs,200",
+          "userKey": true
+        },
+        {
+          "name": "GPA updated",
+          "desc": "The user's GPA changed",
+          "options": "[]",
+          "method": "get",
+          "endpointUrl": "https://intra.epitech.eu/user/?format=json",
+          "header": "Cookie:user_cookie",
+          "body": "",
+          "trigger": "dataChanged,gpa.0.gpa&&codeIs,200",
+          "userKey": true
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Update bio website",
+          "desc": "Update the adress of the website registered in user's bio ",
+          "options": "[{\"name\":\"Website\",\"placeholder\":\"google.com\",\"keyboard\":\"url\"}]",
+          "method": "post",
+          "endpointUrl": "https://intra.epitech.eu/user/{email}/edit/save?format=json",
+          "header": "Cookie:user_cookie",
+          "body": "website[value]={Website}&website[public]=on&website[adm]=on",
+          "userKey": true
+        }
+      ]
+    },
+    {
+      "name": "reddit",
+      "desc": "Reddit.com service that can lookup subreddits and create new posts",
+      "appKeys": "",
+      "actions": [
+        {
+          "name": "New post on subreddit",
+          "desc": "A new post was created on the subreddit",
+          "options": "[{\"name\" : \"Subreddit\",\"placeholder\": \"name of the subreddit\",\"keyboard\":\"default\"}]",
+          "method": "get",
+          "endpointUrl": "https://www.reddit.com/r/{Subreddit}/new.json",
+          "header": "",
+          "body": "",
+          "trigger": "dataChanged,data.children.0.data.created_utc&&codeIs,200",
+          "userKey": false
+        }
+      ],
+      "reactions": [
+        {
+          "name": "New post",
+          "desc": "Create new post on subreddit",
+          "options": "[{\"name\":\"Subreddit\",\"placeholder\":\"Subreddit\",\"keyboard\":\"default\"},{\"name\":\"Text\",\"placeholder\":\"Text to post\",\"keyboard\":\"default\"},{\"name\":\"Title\",\"placeholder\":\"Titile of the post\",\"keyboard\":\"default\"}]",
+          "method": "post",
+          "endpointUrl": "https://oauth.reddit.com/api/submit?sr={Subreddit}&text={Text}&title={Title}&kind=self",
+          "header": "Authorization:access_token",
+          "body": "{\"resubmit\" : \"true\", \"send_replies\" : \"true\", \"api_type\" : \"json\"\n}",
+          "userKey": false
+        }
+      ]
+    },
+    {
+      "name": "twitch",
+      "desc": "Twitch webhook handler that can notify of changes on a user's profile and make updates",
+      "appKeys": "Client-ID:{TWITCH_APP_ID}",
+      "actions": [
+        {
+          "name": "New channel follower",
+          "desc": "Someone followed the user's channel",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Twitch streamer id\",\"keyboard\":\"default\"}]",
+          "webhook_type": "channel.follow",
+          "condition_value": "{ID}",
+          "target_type": "broadcaster_user_id"
+        },
+        {
+          "name": "Stream online",
+          "desc": "User started streaming",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Twitch streamer id\",\"keyboard\":\"default\"}]",
+          "webhook_type": "stream.online",
+          "condition_value": "{ID}",
+          "target_type": "broadcaster_user_id"
+        },
+        {
+          "name": "Stream offline",
+          "desc": "User stoped streaming",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Twitch streamer id\",\"keyboard\":\"default\"}]",
+          "webhook_type": "stream.offline",
+          "condition_value": "{ID}",
+          "target_type": "broadcaster_user_id"
+        },
+        {
+          "name": "Channel updated",
+          "desc": "User changed their stream details",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Twitch streamer id\",\"keyboard\":\"default\"}]",
+          "webhook_type": "channel.update",
+          "condition_value": "{ID}",
+          "target_type": "broadcaster_user_id"
+        },
+        {
+          "name": "Profile updated",
+          "desc": "User changed their profile details",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Twitch streamer id\",\"keyboard\":\"default\"}]",
+          "webhook_type": "user.update",
+          "condition_value": "{ID}",
+          "target_type": "user_id"
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Change bio",
+          "desc": "Change user's bio",
+          "options": "[{\"name\":\"Bio\",\"placeholder\":\"New bio text\",\"keyboard\":\"default\"}]",
+          "method": "put",
+          "endpointUrl": "https://api.twitch.tv/helix/users?description={Bio}",
+          "header": "Authorization:access_token,Client-ID:Client-ID",
+          "body": "",
+          "userKey": true
+        },
+        {
+          "name": "Change stream title",
+          "desc": "Change user's stream title",
+          "options": "[{\"name\":\"broadcaster_id\",\"placeholder\":\"ID\",\"keyboard\":\"default\"},{\"name\":\"Title\",\"placeholder\":\"Titre du stream\",\"keyboard\":\"default\"}]",
+          "method": "patch",
+          "endpointUrl": "https://api.twitch.tv/helix/channels?broadcaster_id={broadcaster_id}",
+          "header": "Authorization:access_token,Client-ID:Client-ID",
+          "body": "JSON:{\"title\": \"{Title}\"}",
+          "userKey": true
+        }
+      ]
+    },
+    {
+      "name": "twitter",
+      "desc": "Twitter.com service can gather informations on a user's tweets and profile",
+      "appKeys": "appkey:Bearer {TWITTER_AUTH},APIkey:{TWITTER_APP_ID},APIsecret:{TWITTER_APP_SECRET}",
+      "actions": [
+        {
+          "name": "New tweet posted",
+          "desc": "User posted a new tweet",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Twitter account id\",\"keyboard\":\"number-pad\"}]",
+          "method": "get",
+          "endpointUrl": "https://api.twitter.com/2/users/{ID}/tweets?tweet.fields=public_metrics",
+          "header": "Authorization:appkey",
+          "body": "",
+          "trigger": "dataChanged,meta.newest_id&&codeIs,200",
+          "userKey": false
+        },
+        {
+          "name": "New like on tweet",
+          "desc": "The tweet was liked",
+          "options": "[{ \"name\":\"ID\",\"placeholder\":\"Tweet ID\",\"keyboard\":\"number-pad\" }]",
+          "method": "get",
+          "endpointUrl": "https://api.twitter.com/2/tweets/{ID}?tweet.fields=public_metrics",
+          "header": "Authorization:appkey",
+          "body": "",
+          "trigger": "dataUp,data.public_metrics.like_count&&codeIs,200",
+          "userKey": false
+        },
+        {
+          "name": "New retweet on tweet",
+          "desc": "The tweet was retweeted",
+          "options": "[{ \"name\":\"ID\",\"placeholder\":\"Tweet ID\",\"keyboard\":\"number-pad\" }]",
+          "method": "get",
+          "endpointUrl": "https://api.twitter.com/2/tweets/{ID}?tweet.fields=public_metrics",
+          "header": "Authorization:appkey",
+          "body": "",
+          "trigger": "dataUp,data.public_metrics.retweet_count&&codeIs,200",
+          "userKey": false
+        },
+        {
+          "name": "New response on tweet",
+          "desc": "The tweet got a new response",
+          "options": "[{ \"name\":\"ID\",\"placeholder\":\"Tweet ID\",\"keyboard\":\"number-pad\" }]",
+          "method": "get",
+          "endpointUrl": "https://api.twitter.com/2/tweets/{ID}?tweet.fields=public_metrics",
+          "header": "Authorization:appkey",
+          "body": "",
+          "trigger": "dataUp,data.public_metrics.reply_count&&codeIs,200",
+          "userKey": false
+        },
+        {
+          "name": "New follower",
+          "desc": "The user got a new follower",
+          "options": "[{\"name\":\"Username\",\"placeholder\":\"Twitter username\",\"keyboard\":\"default\"}]",
+          "method": "get",
+          "endpointUrl": "https://api.twitter.com/2/users/by/username/{Username}?user.fields=public_metrics",
+          "header": "Authorization:appkey",
+          "body": "",
+          "trigger": "dataChanged,data.public_metrics.followers_count&&codeIs,200",
+          "userKey": false
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Update bio",
+          "desc": "Change user's bio",
+          "options": "[{\"name\":\"Bio\",\"placeholder\":\"New bio text\",\"keyboard\":\"default\"}]",
+          "method": "post",
+          "endpointUrl": "https://api.twitter.com/1.1/account/update_profile?description={Bio}",
+          "header": "",
+          "body": "",
+          "userKey": false
+        },
+        {
+          "name": "Post tweet",
+          "desc": "Post a new tweet",
+          "options": "[{\"name\":\"Text\",\"placeholder\":\"Tweet\",\"keyboard\":\"default\"}]",
+          "method": "post",
+          "endpointUrl": "https://api.twitter.com/1.1/statuses/update?status={Text}",
+          "header": "",
+          "body": "",
+          "userKey": false
+        }
+      ]
+    },
+    {
+      "name": "spotify",
+      "desc": "Spotify service can get playlist information and control audio playback",
+      "appKeys": "",
+      "actions": [
+        {
+          "name": "New follow on Playlist",
+          "desc": "New follower on the playlist {ID}",
+          "options": "[{\"name\":\"ID\",\"placeholder\":\"Playlist id\",\"keyboard\":\"default\"}]",
+          "method": "get",
+          "endpointUrl": "https://api.spotify.com/v1/playlists/{ID}",
+          "header": "Authorization:access_token",
+          "body": "",
+          "trigger": "dataChanged,followers.total&&codeIs,200",
+          "userKey": true
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Resume Playback (premium only)",
+          "desc": "Resume current playback your active device",
+          "options": "[]",
+          "method": "put",
+          "endpointUrl": "https://api.spotify.com/v1/me/player/play?device_id={device_id}",
+          "header": "Authorization:access_token",
+          "body": "",
+          "userKey": true
+        },
+        {
+          "name": "Play album (premium only)",
+          "desc": "Play an {Album} on your active device",
+          "options": "[{\"name\":\"Album\",\"placeholder\":\"Album Id\",\"keyboard\":\"default\"}]",
+          "method": "put",
+          "endpointUrl": "https://api.spotify.com/v1/me/player/play?device_id={device_id}",
+          "header": "Authorization:access_token",
+          "body": "JSON:{\"context_uri\":\"spotify:album:{Album}\",\"position_ms\":0}",
+          "userKey": true
+        }
+      ]
+    }
+  ]
+}

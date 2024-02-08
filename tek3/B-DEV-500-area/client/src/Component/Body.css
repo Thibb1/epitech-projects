@@ -1,0 +1,22 @@
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: url(./background.svg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@-moz-document url-prefix(){
+    body {
+        background: url(./background-firefox.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+}

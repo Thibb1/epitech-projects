@@ -31,3 +31,6 @@
 [submodule "tek2/B-PSU-400-malloc"]
 	path = tek2/B-PSU-400-malloc
 	url = git@github.com:Thibb1/B-PSU-400-malloc.git
+[submodule "tek3/B-CPP-500-rtype"]
+    path = tek3/B-CPP-500-rtype
+    url = git@github.com:Thibb1/B-CPP-500-rtype.git

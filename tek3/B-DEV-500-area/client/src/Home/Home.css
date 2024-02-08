@@ -1,0 +1,66 @@
+.home-content h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 50px 0;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-container {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    column-gap: 2%;
+}
+
+.home-tuto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.home-tuto h1, .home-tuto h3 {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 1%;
+}
+
+.home-tuto-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 80%;
+    margin-top: 5%;
+}
+
+.home-tuto-box .circle {
+    display: flex;
+    border: 2px solid blue;
+    width: 5%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 60px;
+}
+.home-tuto-box .line {
+    background-color: blue;
+    width: 8%;
+    height: 2px;
+}
+.home-tuto-box .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid blue;
+    width: 20%;
+    padding: 10px;
+    border-radius: 50px;
+}

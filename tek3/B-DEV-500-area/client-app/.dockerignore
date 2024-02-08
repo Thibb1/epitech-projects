@@ -1,0 +1,5 @@
+node_modules
+ios
+Dockerfile
+.dockerignore
+android/app/build

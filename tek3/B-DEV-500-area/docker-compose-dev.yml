@@ -1,0 +1,64 @@
+version: "3.9"
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:8081"
+    container_name: client-dev
+    volumes:
+      - ./client/:/app
+    depends_on:
+      - server
+    environment:
+      - NODE_ENV=development
+      - PORT=8081
+      - REACT_APP_API_URL=${API_URL:-http://localhost:8080}
+      - REACT_APP_CALLBACK_URL=${CALLBACK_URL:-http://localhost:8081}
+      - HTTPS=${HTTPS:-false}
+      - SSL_CRT_FILE=${SSL_CRT_FILE}
+      - SSL_KEY_FILE=${SSL_KEY_FILE}
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    container_name: server-dev
+    volumes:
+      - ./server/:/app
+    links:
+      - mongo
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+      - URL_MONGO=mongodb://user_area:pass_area@mongo
+      - HTTPS=${HTTPS:-false}
+      - SSL_CRT_FILE=${SSL_CRT_FILE}
+      - SSL_KEY_FILE=${SSL_KEY_FILE}
+      - BASE_URL=${BASE_URL:-http://localhost}
+      - TWITTER_AUTH=${TWITTER_AUTH}
+      - TWITTER_APP_ID=${TWITTER_APP_ID}
+      - TWITTER_APP_SECRET=${TWITTER_APP_SECRET}
+      - REDDIT_APP_ID=${REDDIT_APP_ID}
+      - REDDIT_APP_SECRET=${REDDIT_APP_SECRET}
+      - TWITCH_APP_ID=${TWITCH_APP_ID}
+      - TWITCH_APP_SECRET=${TWITCH_APP_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SPOTIFY_APP_ID=${SPOTIFY_APP_ID}
+      - SPOTIFY_APP_SECRET=${SPOTIFY_APP_SECRET}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+
+  mongo:
+    container_name: mongo-dev
+    image: mongo:4.4.6
+    restart: always
+    logging:
+      driver: none
+    volumes:
+      - "./mongo/data:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user_area
+      MONGO_INITDB_ROOT_PASSWORD: pass_area

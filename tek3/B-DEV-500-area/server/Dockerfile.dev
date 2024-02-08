@@ -1,0 +1,6 @@
+# syntax=docker/dockerfile:1
+
+FROM node
+EXPOSE $PORT
+WORKDIR /app
+CMD ["npm", "run", "dev"]

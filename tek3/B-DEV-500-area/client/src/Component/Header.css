@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-self: end;
+    margin-top: 20px;
+    height: 5vh;
+    gap: 5vh;
+    margin-right: 20px;
+}
+
+.header .link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    min-width: fit-content;
+}
+
+.header .button {
+    padding: 0 20px;
+    border: 1px solid red;
+    background: #b10003;
+    color: white;
+}
+
+.header .link:hover, .header .button:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
